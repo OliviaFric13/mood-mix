@@ -1,1 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car rides — MoodMix Streaming Playlist</title>
+  <link rel="stylesheet" href="style.css?v=9" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Left Navigation Sidebar (Desktop) -->
+    <aside class="sidebar" aria-label="Library navigation">
+      <div class="brand-mark">
+        <span class="brand-dot">🎵</span>
+        <span class="brand-name">MusicStream</span>
+      </div>
 
+      <div class="sidebar-group">
+        <p class="sidebar-label">Library</p>
+        <div class="nav-item">🏠 Home</div>
+        <div class="nav-item">🕒 Recently Added</div>
+        <div class="nav-item">🎤 Artists</div>
+        <div class="nav-item">💿 Albums</div>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-label">Playlists</p>
+        <div id="nav-car-rides" class="nav-item active">🚗 Car rides</div>
+        <div id="saved-playlists-nav">
+          <!-- Saved MoodMix playlists appear here automatically -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Playlist View -->
+    <main class="main-view">
+      <!-- Playlist Hero Header -->
+      <header class="playlist-hero">
+        <div id="hero-collage-cover" class="collage-cover" aria-hidden="true">
+          <div class="collage-tile tile-1">🌅</div>
+          <div class="collage-tile tile-2">💖</div>
+          <div class="collage-tile tile-3">🎸</div>
+          <div class="collage-tile tile-4">🌃</div>
+        </div>
+
+        <div class="playlist-meta">
+          <span id="hero-playlist-type" class="playlist-type">PLAYLIST</span>
+          <h1 id="hero-playlist-title">Car rides</h1>
+          <p class="playlist-owner">Olivia Fricano • <span id="playlist-duration">5 hr 18 min</span></p>
+          <p id="hero-playlist-desc" class="playlist-desc">
+            A massive mixed-genre playlist. Click <strong>MoodMix</strong> to filter by your exact vibe without deleting a single song.
+          </p>
+
+          <div class="hero-actions">
+            <button id="btn-play-all" class="btn btn-primary" type="button">▶ Play</button>
+            <button id="btn-shuffle" class="btn btn-secondary" type="button">🔀 Shuffle</button>
+            <button id="btn-toggle-moodmix" class="btn btn-moodmix" type="button" aria-expanded="false">
+              ✨ MoodMix
+            </button>
+            <button id="btn-toggle-lookup" class="btn btn-secondary" type="button" aria-expanded="false">
+              ➕ Look Up Song
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Collapsible Live Song Lookup Drawer -->
+      <section id="lookup-panel" class="lookup-panel hidden" aria-label="Look Up and Play Any Song">
+        <div class="moodmix-header">
+          <div>
+            <h2>🔍 Look Up &amp; Preview Any Song Live</h2>
+            <p>Click <strong>Preview</strong> to listen before deciding, or click <strong>Add to Playlist</strong> to tag a custom mood/genre (or skip tagging and add right away).</p>
+          </div>
+          <button id="btn-close-lookup" class="btn btn-ghost" type="button">Close</button>
+        </div>
+
+        <form id="lookup-form" class="lookup-search-row">
+          <input
+            type="text"
+            id="input-song-lookup"
+            placeholder="Type any song or artist (e.g., Summer of 69, Pink Skies, Usher)..."
+            autocomplete="off"
+          />
+          <button id="btn-search-song" class="btn btn-save-mix-cta" type="submit">🔍 Search</button>
+        </form>
+
+        <div id="lookup-status" class="lookup-status hidden" role="status"></div>
+        <div id="lookup-results" class="lookup-results"></div>
+      </section>
+
+      <!-- Collapsible MoodMix Filter Panel -->
+      <section id="moodmix-panel" class="moodmix-panel hidden" aria-label="MoodMix Smart Filters">
+        <div class="moodmix-header">
+          <div>
+            <h2>✨ MoodMix Smart Filter</h2>
+            <p>Type or click any mood, genre/decade, or artist — custom tags you create automatically appear here too.</p>
+          </div>
+          <div class="moodmix-header-actions">
+            <button id="btn-reset-filters" class="btn btn-ghost" type="button">Reset All</button>
+          </div>
+        </div>
+
+        <div class="filter-inputs-grid">
+          <!-- Mood Input -->
+          <div class="filter-box">
+            <label for="input-mood">1. Mood or Custom Vibe</label>
+            <input
+              type="text"
+              id="input-mood"
+              placeholder="e.g., party, 80s, nostalgic, heartbreak..."
+              autocomplete="off"
+            />
+            <div id="pills-mood" class="quick-pills" data-target="input-mood">
+              <button type="button" class="pill" data-value="party">party</button>
+              <button type="button" class="pill" data-value="happy">happy</button>
+              <button type="button" class="pill" data-value="calm">calm</button>
+              <button type="button" class="pill" data-value="sad">sad</button>
+              <button type="button" class="pill" data-value="heartbreak">heartbreak</button>
+              <button type="button" class="pill" data-value="breakup">breakup</button>
+              <button type="button" class="pill" data-value="nostalgic">nostalgic</button>
+              <button type="button" class="pill" data-value="romantic">romantic</button>
+              <button type="button" class="pill" data-value="focus">focus</button>
+              <button type="button" class="pill" data-value="workout">workout</button>
+            </div>
+          </div>
+
+          <!-- Genre / Era Input -->
+          <div class="filter-box">
+            <label for="input-genre">2. Genre or Era</label>
+            <input
+              type="text"
+              id="input-genre"
+              placeholder="e.g., country, indie, rock, 80s, 90s, 2000s..."
+              autocomplete="off"
+            />
+            <div id="pills-genre" class="quick-pills" data-target="input-genre">
+              <button type="button" class="pill" data-value="pop">pop</button>
+              <button type="button" class="pill" data-value="country">country</button>
+              <button type="button" class="pill" data-value="rap">rap</button>
+              <button type="button" class="pill" data-value="indie">indie</button>
+              <button type="button" class="pill" data-value="rock">rock</button>
+              <button type="button" class="pill" data-value="latin">latin</button>
+              <button type="button" class="pill" data-value="acoustic">acoustic</button>
+              <button type="button" class="pill" data-value="80s">80s</button>
+              <button type="button" class="pill" data-value="90s">90s</button>
+              <button type="button" class="pill" data-value="2000s">2000s</button>
+            </div>
+          </div>
+
+          <!-- Artist Input -->
+          <div class="filter-box">
+            <label for="input-artist">3. Artist(s)</label>
+            <input
+              type="text"
+              id="input-artist"
+              placeholder="e.g., Taylor Swift, Bryan Adams, SZA..."
+              autocomplete="off"
+            />
+            <div id="pills-artist" class="quick-pills" data-target="input-artist">
+              <button type="button" class="pill" data-value="Taylor Swift">Taylor Swift</button>
+              <button type="button" class="pill" data-value="Noah Kahan">Noah Kahan</button>
+              <button type="button" class="pill" data-value="Morgan Wallen">Morgan Wallen</button>
+              <button type="button" class="pill" data-value="Sabrina Carpenter">Sabrina Carpenter</button>
+              <button type="button" class="pill" data-value="Chappell Roan">Chappell Roan</button>
+              <button type="button" class="pill" data-value="SZA">SZA</button>
+              <button type="button" class="pill" data-value="Bad Bunny">Bad Bunny</button>
+              <button type="button" class="pill" data-value="Lil Baby">Lil Baby</button>
+              <button type="button" class="pill" data-value="Dave Matthews Band">Dave Matthews Band</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 Inside MoodMix Drawer: Organized Save Mix Bar -->
+        <div id="save-mix-callout" class="save-mix-callout hidden" aria-label="Save Filtered Mix">
+          <div id="save-mix-prompt-row" class="save-mix-prompt-row">
+            <div class="save-mix-copy">
+              <span class="step-pill">NEXT STEP</span>
+              <strong>Love this custom vibe?</strong>
+              <span id="save-mix-summary-text">Save these filtered songs as a standalone playlist without changing Car rides.</span>
+            </div>
+            <button id="btn-open-save-mix" class="btn btn-save-mix-cta" type="button">
+              💾 Save These Songs as a Playlist
+            </button>
+          </div>
+
+          <div id="save-mix-step2" class="save-mix-step2 hidden">
+            <label for="input-mix-name" class="save-mix-step-label">
+              Name your new playlist (we suggested one below — edit it or click Save Playlist):
+            </label>
+            <div class="save-mix-input-row">
+              <input
+                type="text"
+                id="input-mix-name"
+                placeholder="e.g., 80s Road Trip, Heartbreak Drive..."
+                autocomplete="off"
+              />
+              <button id="btn-confirm-save-mix" class="btn btn-save-mix-cta btn-sm" type="button">✅ Save Playlist</button>
+              <button id="btn-cancel-save-mix" class="btn btn-ghost btn-sm" type="button">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Vibe Stats Bar (KPIs) -->
+      <section class="vibe-stats-bar" aria-label="Current Mix Analytics">
+        <div class="stat-card">
+          <span class="stat-label">Mix Length</span>
+          <strong id="stat-duration" class="stat-value">5 hr 15 min</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Top Vibe</span>
+          <strong id="stat-top-mood" class="stat-value">party</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Top Genre</span>
+          <strong id="stat-top-genre" class="stat-value">Pop</strong>
+        </div>
+      </section>
+
+      <!-- Saved Mixes Quick Switcher Bar (Appears only after saving a mix!) -->
+      <div id="saved-mixes-strip" class="saved-mixes-strip hidden">
+        <span class="saved-strip-label">Your Saved Mixes:</span>
+        <div id="saved-mixes-chips" class="saved-mixes-chips"></div>
+      </div>
+
+      <p id="save-mix-feedback" class="save-mix-feedback hidden" role="status"></p>
+
+      <!-- Tracklist Status Bar -->
+      <div class="tracklist-status">
+        <span id="filter-status-text">Showing all songs in <strong>Car rides</strong></span>
+        <span id="song-count-badge" class="count-badge">84 songs</span>
+      </div>
+
+      <!-- Streaming-Style Track Table -->
+      <section class="tracklist-container" aria-label="Playlist tracks">
+        <div class="tracklist-header">
+          <span>#</span>
+          <span>Title</span>
+          <span>Artist</span>
+          <span class="col-hide-mobile">Genre / Era</span>
+          <span class="col-hide-mobile">Moods</span>
+          <span class="col-duration">🕒</span>
+        </div>
+
+        <div id="song-list" class="song-list">
+          <!-- Rows rendered by script.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Fixed Bottom Audio Player Bar -->
+  <footer class="player-bar" aria-label="Now Playing Controls">
+    <div class="player-now-playing">
+      <div id="player-art" class="player-art" aria-hidden="true">🎵</div>
+      <div class="player-track-meta">
+        <div id="player-title" class="player-title">Click any song to play a 30s preview</div>
+        <div id="player-artist" class="player-artist">Car rides • MoodMix</div>
+      </div>
+    </div>
+
+    <div class="player-controls-center">
+      <div class="player-buttons">
+        <button id="btn-prev" class="player-icon-btn" type="button" title="Previous song" aria-label="Previous song">⏮</button>
+        <button id="btn-play-pause" class="player-play-btn" type="button" title="Play or Pause" aria-label="Play or Pause">▶</button>
+        <button id="btn-next" class="player-icon-btn" type="button" title="Next song" aria-label="Next song">⏭</button>
+      </div>
+      <div class="player-progress-row">
+        <span id="player-current-time" class="time-label">0:00</span>
+        <input id="player-seek" class="seek-slider" type="range" min="0" max="100" value="0" aria-label="Song progress" />
+        <span id="player-duration" class="time-label">0:30</span>
+      </div>
+    </div>
+
+    <div class="player-status-right">
+      <span id="player-status-badge" class="player-status-pill">Ready</span>
+    </div>
+
+    <audio id="audio-player" preload="none"></audio>
+  </footer>
+
+  <script src="script.js?v=9"></script>
+</body>
+</html>
